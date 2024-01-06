@@ -1,13 +1,12 @@
-import './App.css'
-import Connect from './components/Connect'
-import Navbar from './components/Navbar'
+import "./App.css";
+import CourseCard from "./components/CourseCard";
 
 function App() {
-  return (
-    <>
-      <Connect />
-    </>
-  )
+	return (
+		<>
+			<CourseCard />
+		</>
+	);
 }
 
-export default App
+export default App;
