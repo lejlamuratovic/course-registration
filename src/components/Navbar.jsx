@@ -7,9 +7,9 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import AdbIcon from '@mui/icons-material/Adb';
+import ApiIcon from '@mui/icons-material/Api';
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -25,9 +25,9 @@ const Navbar = () => {
   return (
     <AppBar position="static" sx={{ width: '100%', position: 'absolute', left: 0, top: 0}}>
         <Toolbar sx={{ display: 'flex', alignItems: 'center', maxWidth: '100%' }}>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <ApiIcon sx={{ display: { xs: "none", md: "flex" }, fontSize: 50, mr: 1 }} />
           <Typography
-            variant="h6"
+            variant="h3"
             noWrap
             component="a"
             href="#responsive-app-bar"
@@ -41,7 +41,7 @@ const Navbar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            EduChain
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -70,22 +70,19 @@ const Navbar = () => {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: 'block', md: 'none' }
               }}
             >
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Products</Typography>
+              <MenuItem onClick={handleCloseNavMenu} sx={{ fontSize: '1rem' }}>
+                <Typography textAlign="center">Explore courses</Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Pricing</Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Blog</Typography>
+              <MenuItem onClick={handleCloseNavMenu} sx={{ fontSize: '1rem' }}>
+                <Typography textAlign="center">Your courses</Typography>
               </MenuItem>
             </Menu>
           </Box>
           
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <ApiIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -102,27 +99,21 @@ const Navbar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            EduChain
           </Typography>
           
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Button
-              key="Products"
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-              Products
-            </Button>
-            <Button
               key="Pricing"
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
-              Pricing
+              Explore courses
             </Button>
             <Button
               key="Blog"
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
-              Blog
+              Your courses
             </Button>
           </Box>
         </Toolbar>
