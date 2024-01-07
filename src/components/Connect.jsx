@@ -1,61 +1,128 @@
-import React from 'react';
-import { Button, Paper, Typography } from '@mui/material';
-import AddLinkIcon from '@mui/icons-material/AddLink';
-import ApiIcon from '@mui/icons-material/Api';
-import initializeWeb3 from '../web3/initializeWeb3'; // Import your Web3 initialization function
-import { getCourseMethod } from '../web3/contractInteraction'; // Import contract interaction function
+import AddLinkIcon from "@mui/icons-material/AddLink";
+import ApiIcon from "@mui/icons-material/Api";
+import initializeWeb3 from "../web3/initializeWeb3";
+import { getCourseMethod } from "../web3/contractInteraction";
+import {
+	registerStudentOnBlockchain,
+	checkStudentRegistration,
+} from "../web3/contractInteraction";
+import { Button, Paper, Typography, TextField, Container } from "@mui/material";
+import { useState } from "react";
 
 const Connect = () => {
+	const [walletConnected, setWalletConnected] = useState(false);
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [address, setAddress] = useState("");
 
-  const handleConnectWallet = async () => {
-    console.log('Connecting to wallet...'); // debugging log
+	const handleConnectWallet = async () => {
+		console.log("Connecting to wallet..."); // debugging log
 
-    try {
-      const web3 = initializeWeb3();
-      if (!web3) {
-        console.error('Web3 not initialized');
-        return;
-      }
+		try {
+			const web3 = initializeWeb3();
+			if (!web3) {
+				console.error("Web3 not initialized");
+				return;
+			}
 
-      console.log('Requesting account access...'); // debugging log
-      const addresses = await window.ethereum.request({ method: 'eth_requestAccounts' });
+			console.log("Requesting account access..."); // debugging log
+			const addresses = await window.ethereum.request({
+				method: "eth_requestAccounts",
+			});
 
-      if (addresses.length === 0) {
-        console.error('No address provided.');
-        return;
-      }
+			if (addresses.length === 0) {
+				console.error("No address provided.");
+				return;
+			}
 
-      console.log('Connected to address:', addresses[0]); // debugging log
+			console.log("Connected to address:", addresses[0]); // debugging log
 
-      // call contract interaction function, only to test that it works
-      const result = await getCourseMethod();
-      console.log('getCourseMethod() result:', result); // debugging log
+			// Check if student is already registered
+			const isRegistered = await checkStudentRegistration(addresses[0]);
+			if (isRegistered) {
+				alert("User is already registered");
+			} else {
+				console.log("User is not registered");
+			}
 
-    } catch (error) {
-      console.error('Error connecting to MetaMask:', error);
-    }
-  };
+			// call contract interaction function, only to test that it works
+			const result = await getCourseMethod();
+			console.log("getCourseMethod() result:", result); // debugging log
 
-  return (
-    <Paper sx={{ p: 2, margin: 'auto', flexGrow: 1 }}>
-      <ApiIcon sx={{ fontSize: 70, m: 1 }} color="primary" />
-      <Typography variant='h3' color="primary" sx={{ fontWeight: 'bold' }}>
-        Welcome to EduChain
-      </Typography>
-      <Typography variant='h4'>
-        Please connect your wallet to continue
-      </Typography>
-      <Button 
-        variant='contained' 
-        color='primary' 
-        sx={{ mt: 4, p: 2, fontSize: '23px' }} 
-        onClick={ handleConnectWallet }
-      >
-        <AddLinkIcon sx={{ fontSize: 40, mr: 1 }} />
-        Connect Wallet
-      </Button>
-    </Paper>
-  );
-}
+			setWalletConnected(true);
+			setAddress(addresses[0]);
+		} catch (error) {
+			console.log("Error connecting to MetaMask:", error);
+		}
+	};
+
+	const handleSubmit = async () => {
+		if (!firstName || !lastName) {
+			alert("Please enter both first and last names.");
+			return;
+		}
+
+		try {
+			await registerStudentOnBlockchain(address, firstName, lastName);
+			alert("Student registered successfully!");
+		} catch (error) {
+			console.error("Error registering student:", error);
+			alert("Failed to register student.");
+		}
+	};
+
+	return (
+		<Paper sx={{ p: 2, margin: "auto", flexGrow: 1 }}>
+			<ApiIcon sx={{ fontSize: 70, m: 1 }} color="primary" />
+			<Typography variant="h3" color="primary" sx={{ fontWeight: "bold" }}>
+				Welcome to EduChain
+			</Typography>
+			{!walletConnected ? (
+				<Container>
+					<Typography variant="h4">
+						Please connect your wallet to continue
+					</Typography>
+					<Button
+						variant="contained"
+						color="primary"
+						sx={{ mt: 4, p: 2, fontSize: "23px" }}
+						onClick={handleConnectWallet}
+					>
+						<AddLinkIcon sx={{ fontSize: 40, mr: 1 }} />
+						Connect Wallet
+					</Button>
+				</Container>
+			) : (
+				<Container>
+					<Container sx={{ width: "100%" }}>
+						<TextField
+							label="First Name"
+							variant="outlined"
+							value={firstName}
+							onChange={(e) => setFirstName(e.target.value)}
+							sx={{ mt: 2 }}
+						/>
+						<TextField
+							label="Last Name"
+							variant="outlined"
+							value={lastName}
+							onChange={(e) => setLastName(e.target.value)}
+							sx={{ mt: 2, ml: 2 }}
+						/>
+					</Container>
+
+					<Button
+						variant="contained"
+						color="primary"
+						sx={{ mt: 4, p: 1, fontSize: "23px", width: "90%", mb: 2 }}
+						onClick={handleSubmit}
+					>
+						Submit
+					</Button>
+				</Container>
+			)}
+		</Paper>
+	);
+};
 
 export default Connect;
