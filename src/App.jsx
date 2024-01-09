@@ -1,15 +1,20 @@
+import React from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import ExploreCoursesPage from "./pages/ExploreCoursesPage";
 import HomePage from "./pages/HomePage";
 import YourCoursesPage from "./pages/YourCoursesPage";
-import { Routes, Route } from "react-router-dom";
 import ConnectPage from "./pages/ConnectPage";
 
 function App() {
+	const location = useLocation();
+
+	const shouldDisplayNavbar = location.pathname !== "/";
+
 	return (
 		<>
-			<Navbar />
+			{shouldDisplayNavbar && <Navbar />}
 			<Routes>
 				<Route path="/" element={<ConnectPage />} />
 				<Route path="/homepage" element={<HomePage />} />

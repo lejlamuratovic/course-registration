@@ -1,11 +1,29 @@
-import React from 'react'
+import { useEffect, useState } from "react";
+import { getCoursesMethod } from "../web3/contractInteraction";
+import CourseList from "../components/CourseList";
 
 const ExploreCoursesPage = () => {
-  return (
-    <div>
-      Explore Courses
-    </div>
-  )
-}
+  const [courses, setCourses] = useState([]);
 
-export default ExploreCoursesPage
+  useEffect(() => {
+    async function fetchCourses() {
+      try {
+        const coursesData = await getCoursesMethod(); // fetching courses from the contract
+
+        setCourses(coursesData);
+      } catch (error) {
+        console.log("Error fetching courses:", error);
+      }
+    }
+
+    fetchCourses();
+  }, []);
+
+  return (
+    <>
+      <CourseList courses={courses}/>
+    </>
+  );
+};
+
+export default ExploreCoursesPage;

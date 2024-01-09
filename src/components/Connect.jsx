@@ -1,7 +1,7 @@
 import AddLinkIcon from "@mui/icons-material/AddLink";
 import ApiIcon from "@mui/icons-material/Api";
 import initializeWeb3 from "../web3/initializeWeb3";
-import { getCourseMethod } from "../web3/contractInteraction";
+import { getCoursesMethod } from "../web3/contractInteraction";
 import {
 	registerStudentOnBlockchain,
 	checkStudentRegistration,
@@ -55,8 +55,8 @@ const Connect = () => {
 			}
 
 			// call contract interaction function, just testing that it works
-			const result = await getCourseMethod();
-			console.log("getCourseMethod() result:", result); // debugging log
+			const result = await getCoursesMethod();
+			console.log("getCoursesMethod() result:", result); // debugging log
 		} catch (error) {
 			console.error("Error connecting to MetaMask:", error);
 		}
