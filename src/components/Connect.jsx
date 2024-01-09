@@ -8,12 +8,15 @@ import {
 } from "../web3/contractInteraction";
 import { Button, Paper, Typography, TextField, Container } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Connect = () => {
 	const [walletConnected, setWalletConnected] = useState(false);
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [address, setAddress] = useState("");
+	const [isRegistered, setIsRegistered] = useState(false);
+	const navigate = useNavigate();
 
 	const handleConnectWallet = async () => {
 		console.log("Connecting to wallet..."); // debugging log
@@ -39,20 +42,23 @@ const Connect = () => {
 
 			// Check if student is already registered
 			const isRegistered = await checkStudentRegistration(addresses[0]);
+
 			if (isRegistered) {
-				alert("User is already registered");
+				console.log("User is already registered");
+				setIsRegistered(true);
+				navigate("/homepage");
 			} else {
 				console.log("User is not registered");
+				setIsRegistered(false);
+				setWalletConnected(true);
+				setAddress(addresses[0]);
 			}
 
-			// call contract interaction function, only to test that it works
+			// call contract interaction function, just testing that it works
 			const result = await getCourseMethod();
 			console.log("getCourseMethod() result:", result); // debugging log
-
-			setWalletConnected(true);
-			setAddress(addresses[0]);
 		} catch (error) {
-			console.log("Error connecting to MetaMask:", error);
+			console.error("Error connecting to MetaMask:", error);
 		}
 	};
 
@@ -65,6 +71,7 @@ const Connect = () => {
 		try {
 			await registerStudentOnBlockchain(address, firstName, lastName);
 			alert("Student registered successfully!");
+			navigate("/homepage"); // Redirect to homepage after successful registration
 		} catch (error) {
 			console.error("Error registering student:", error);
 			alert("Failed to register student.");
@@ -92,6 +99,8 @@ const Connect = () => {
 						Connect Wallet
 					</Button>
 				</Container>
+			) : isRegistered ? (
+				<Typography variant="h4">Redirecting to homepage...</Typography>
 			) : (
 				<Container>
 					<Container sx={{ width: "100%" }}>

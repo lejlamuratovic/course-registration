@@ -304,7 +304,8 @@ export const checkStudentRegistration = async (address) => {
 
 	try {
 		const student = await contract.methods.getStudentDetails(address).call();
-		return student && student.studentId !== "0";
+		console.log("Student details:", student);
+		return student && student.studentId !== 0n; //"0"
 	} catch (error) {
 		alert("Error checking student registration:", error);
 		return false;
