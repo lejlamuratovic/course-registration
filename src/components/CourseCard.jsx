@@ -31,7 +31,7 @@ const CourseCard = ({ course }) => {
 	};
 
 	return (
-		<Card sx={{ maxWidth: 345 }}>
+		<Card sx={{ }}>
 			<CardContent>
 				<Typography
 					gutterBottom

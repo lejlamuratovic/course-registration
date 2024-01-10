@@ -4,612 +4,680 @@ const web3 = initializeWeb3();
 
 const contractABI = [
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "string",
-				name: "_name",
-				type: "string",
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
 			},
 			{
-				internalType: "string",
-				name: "_description",
-				type: "string",
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
 			},
 			{
-				internalType: "uint256",
-				name: "_price",
-				type: "uint256",
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
 			},
 			{
-				internalType: "uint256",
-				name: "_beginDate",
-				type: "uint256",
+				"internalType": "uint256",
+				"name": "_beginDate",
+				"type": "uint256"
 			},
 			{
-				internalType: "uint256",
-				name: "_endDate",
-				type: "uint256",
-			},
+				"internalType": "uint256",
+				"name": "_endDate",
+				"type": "uint256"
+			}
 		],
-		name: "addCourse",
-		outputs: [],
-		stateMutability: "nonpayable",
-		type: "function",
+		"name": "addCourse",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "uint256",
-				name: "_courseId",
-				type: "uint256",
-			},
+				"internalType": "uint256",
+				"name": "_courseId",
+				"type": "uint256"
+			}
 		],
-		name: "enrollInCourse",
-		outputs: [],
-		stateMutability: "payable",
-		type: "function",
+		"name": "enrollInCourse",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
 	},
 	{
-		inputs: [],
-		stateMutability: "nonpayable",
-		type: "constructor",
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	},
 	{
-		anonymous: false,
-		inputs: [
+		"anonymous": false,
+		"inputs": [
 			{
-				indexed: false,
-				internalType: "uint256",
-				name: "courseid",
-				type: "uint256",
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "courseid",
+				"type": "uint256"
 			},
 			{
-				indexed: false,
-				internalType: "string",
-				name: "_name",
-				type: "string",
-			},
+				"indexed": false,
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
 		],
-		name: "addedCourse",
-		type: "event",
+		"name": "addedCourse",
+		"type": "event"
 	},
 	{
-		anonymous: false,
-		inputs: [
+		"anonymous": false,
+		"inputs": [
 			{
-				indexed: false,
-				internalType: "address",
-				name: "studentAddress",
-				type: "address",
+				"indexed": false,
+				"internalType": "address",
+				"name": "studentAddress",
+				"type": "address"
 			},
 			{
-				indexed: false,
-				internalType: "uint256",
-				name: "courseId",
-				type: "uint256",
-			},
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "courseId",
+				"type": "uint256"
+			}
 		],
-		name: "enrollStudent",
-		type: "event",
+		"name": "enrollStudent",
+		"type": "event"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "address",
-				name: "_student",
-				type: "address",
+				"internalType": "address",
+				"name": "_student",
+				"type": "address"
 			},
 			{
-				internalType: "uint256",
-				name: "_courseId",
-				type: "uint256",
+				"internalType": "uint256",
+				"name": "_courseId",
+				"type": "uint256"
 			},
 			{
-				internalType: "enum CourseRegistration.CourseStatus",
-				name: "_status",
-				type: "uint8",
-			},
+				"internalType": "enum CourseRegistration.CourseStatus",
+				"name": "_status",
+				"type": "uint8"
+			}
 		],
-		name: "markCourseStatus",
-		outputs: [],
-		stateMutability: "nonpayable",
-		type: "function",
+		"name": "markCourseStatus",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "string",
-				name: "_firstName",
-				type: "string",
+				"internalType": "string",
+				"name": "_firstName",
+				"type": "string"
 			},
 			{
-				internalType: "string",
-				name: "_lastName",
-				type: "string",
-			},
+				"internalType": "string",
+				"name": "_lastName",
+				"type": "string"
+			}
 		],
-		name: "registerStudent",
-		outputs: [],
-		stateMutability: "nonpayable",
-		type: "function",
+		"name": "registerStudent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "uint256",
-				name: "_courseId",
-				type: "uint256",
-			},
+				"internalType": "uint256",
+				"name": "_courseId",
+				"type": "uint256"
+			}
 		],
-		name: "removeCourse",
-		outputs: [],
-		stateMutability: "nonpayable",
-		type: "function",
+		"name": "removeCourse",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "uint256",
-				name: "_courseId",
-				type: "uint256",
+				"internalType": "uint256",
+				"name": "_courseId",
+				"type": "uint256"
 			},
 			{
-				internalType: "string",
-				name: "_name",
-				type: "string",
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
 			},
 			{
-				internalType: "string",
-				name: "_description",
-				type: "string",
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
 			},
 			{
-				internalType: "uint256",
-				name: "_priceInEther",
-				type: "uint256",
+				"internalType": "uint256",
+				"name": "_priceInEther",
+				"type": "uint256"
 			},
 			{
-				internalType: "uint256",
-				name: "_beginDate",
-				type: "uint256",
+				"internalType": "uint256",
+				"name": "_beginDate",
+				"type": "uint256"
 			},
 			{
-				internalType: "uint256",
-				name: "_endDate",
-				type: "uint256",
-			},
+				"internalType": "uint256",
+				"name": "_endDate",
+				"type": "uint256"
+			}
 		],
-		name: "updateCourse",
-		outputs: [],
-		stateMutability: "nonpayable",
-		type: "function",
+		"name": "updateCourse",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "uint256",
-				name: "",
-				type: "uint256",
-			},
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
 		],
-		name: "courses",
-		outputs: [
+		"name": "courses",
+		"outputs": [
 			{
-				internalType: "uint256",
-				name: "courseId",
-				type: "uint256",
+				"internalType": "uint256",
+				"name": "courseId",
+				"type": "uint256"
 			},
 			{
-				internalType: "string",
-				name: "name",
-				type: "string",
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
 			},
 			{
-				internalType: "string",
-				name: "description",
-				type: "string",
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
 			},
 			{
-				internalType: "uint256",
-				name: "price",
-				type: "uint256",
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
 			},
 			{
-				internalType: "uint256",
-				name: "beginDate",
-				type: "uint256",
+				"internalType": "uint256",
+				"name": "beginDate",
+				"type": "uint256"
 			},
 			{
-				internalType: "uint256",
-				name: "endDate",
-				type: "uint256",
+				"internalType": "uint256",
+				"name": "endDate",
+				"type": "uint256"
 			},
 			{
-				internalType: "bool",
-				name: "isActive",
-				type: "bool",
-			},
+				"internalType": "bool",
+				"name": "isActive",
+				"type": "bool"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "uint256",
-				name: "",
-				type: "uint256",
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			},
 			{
-				internalType: "uint256",
-				name: "",
-				type: "uint256",
-			},
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
 		],
-		name: "courseToStudents",
-		outputs: [
+		"name": "courseToStudents",
+		"outputs": [
 			{
-				internalType: "address",
-				name: "",
-				type: "address",
-			},
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [],
-		name: "getAllCourses",
-		outputs: [
+		"inputs": [],
+		"name": "getAllCourses",
+		"outputs": [
 			{
-				components: [
+				"components": [
 					{
-						internalType: "uint256",
-						name: "courseId",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "courseId",
+						"type": "uint256"
 					},
 					{
-						internalType: "string",
-						name: "name",
-						type: "string",
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
 					},
 					{
-						internalType: "string",
-						name: "description",
-						type: "string",
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
 					},
 					{
-						internalType: "uint256",
-						name: "price",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
 					},
 					{
-						internalType: "uint256",
-						name: "beginDate",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "beginDate",
+						"type": "uint256"
 					},
 					{
-						internalType: "uint256",
-						name: "endDate",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "endDate",
+						"type": "uint256"
 					},
 					{
-						internalType: "bool",
-						name: "isActive",
-						type: "bool",
-					},
+						"internalType": "bool",
+						"name": "isActive",
+						"type": "bool"
+					}
 				],
-				internalType: "struct CourseRegistration.Course[]",
-				name: "",
-				type: "tuple[]",
-			},
+				"internalType": "struct CourseRegistration.Course[]",
+				"name": "",
+				"type": "tuple[]"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "uint256",
-				name: "_courseId",
-				type: "uint256",
-			},
+				"internalType": "uint256",
+				"name": "_courseId",
+				"type": "uint256"
+			}
 		],
-		name: "getCourse",
-		outputs: [
+		"name": "getCourse",
+		"outputs": [
 			{
-				components: [
+				"components": [
 					{
-						internalType: "uint256",
-						name: "courseId",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "courseId",
+						"type": "uint256"
 					},
 					{
-						internalType: "string",
-						name: "name",
-						type: "string",
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
 					},
 					{
-						internalType: "string",
-						name: "description",
-						type: "string",
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
 					},
 					{
-						internalType: "uint256",
-						name: "price",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
 					},
 					{
-						internalType: "uint256",
-						name: "beginDate",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "beginDate",
+						"type": "uint256"
 					},
 					{
-						internalType: "uint256",
-						name: "endDate",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "endDate",
+						"type": "uint256"
 					},
 					{
-						internalType: "bool",
-						name: "isActive",
-						type: "bool",
-					},
+						"internalType": "bool",
+						"name": "isActive",
+						"type": "bool"
+					}
 				],
-				internalType: "struct CourseRegistration.Course",
-				name: "",
-				type: "tuple",
-			},
+				"internalType": "struct CourseRegistration.Course",
+				"name": "",
+				"type": "tuple"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "enum CourseRegistration.CourseStatus",
-				name: "status",
-				type: "uint8",
-			},
+				"internalType": "enum CourseRegistration.CourseStatus",
+				"name": "status",
+				"type": "uint8"
+			}
 		],
-		name: "getCoursesByStatus",
-		outputs: [
+		"name": "getCoursesByStatus",
+		"outputs": [
 			{
-				components: [
+				"components": [
 					{
-						internalType: "uint256",
-						name: "courseId",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "courseId",
+						"type": "uint256"
 					},
 					{
-						internalType: "string",
-						name: "name",
-						type: "string",
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
 					},
 					{
-						internalType: "string",
-						name: "description",
-						type: "string",
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
 					},
 					{
-						internalType: "uint256",
-						name: "price",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
 					},
 					{
-						internalType: "uint256",
-						name: "beginDate",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "beginDate",
+						"type": "uint256"
 					},
 					{
-						internalType: "uint256",
-						name: "endDate",
-						type: "uint256",
+						"internalType": "uint256",
+						"name": "endDate",
+						"type": "uint256"
 					},
 					{
-						internalType: "bool",
-						name: "isActive",
-						type: "bool",
-					},
+						"internalType": "bool",
+						"name": "isActive",
+						"type": "bool"
+					}
 				],
-				internalType: "struct CourseRegistration.Course[]",
-				name: "",
-				type: "tuple[]",
-			},
+				"internalType": "struct CourseRegistration.Course[]",
+				"name": "",
+				"type": "tuple[]"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "address",
-				name: "_student",
-				type: "address",
-			},
+				"internalType": "address",
+				"name": "_student",
+				"type": "address"
+			}
 		],
-		name: "getStudentCourses",
-		outputs: [
+		"name": "getStudentCourses",
+		"outputs": [
 			{
-				internalType: "uint256[]",
-				name: "",
-				type: "uint256[]",
-			},
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "address",
-				name: "studentAddress",
-				type: "address",
-			},
+				"internalType": "address",
+				"name": "_student",
+				"type": "address"
+			}
 		],
-		name: "getStudentDetails",
-		outputs: [
+		"name": "getStudentCoursesWithStatus",
+		"outputs": [
 			{
-				components: [
+				"components": [
 					{
-						internalType: "string",
-						name: "firstName",
-						type: "string",
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "courseId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "price",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "beginDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isActive",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct CourseRegistration.Course",
+						"name": "course",
+						"type": "tuple"
 					},
 					{
-						internalType: "string",
-						name: "lastName",
-						type: "string",
-					},
-					{
-						internalType: "uint256",
-						name: "studentId",
-						type: "uint256",
-					},
+						"internalType": "enum CourseRegistration.CourseStatus",
+						"name": "status",
+						"type": "uint8"
+					}
 				],
-				internalType: "struct CourseRegistration.Student",
-				name: "",
-				type: "tuple",
-			},
+				"internalType": "struct CourseRegistration.CourseWithStatus[]",
+				"name": "",
+				"type": "tuple[]"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "address",
-				name: "_student",
-				type: "address",
-			},
-			{
-				internalType: "uint256",
-				name: "_courseId",
-				type: "uint256",
-			},
+				"internalType": "address",
+				"name": "studentAddress",
+				"type": "address"
+			}
 		],
-		name: "getStudentStatusInCourse",
-		outputs: [
+		"name": "getStudentDetails",
+		"outputs": [
 			{
-				internalType: "enum CourseRegistration.CourseStatus",
-				name: "",
-				type: "uint8",
-			},
+				"components": [
+					{
+						"internalType": "string",
+						"name": "firstName",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "lastName",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "studentId",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct CourseRegistration.Student",
+				"name": "",
+				"type": "tuple"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "uint256",
-				name: "_courseId",
-				type: "uint256",
+				"internalType": "address",
+				"name": "_student",
+				"type": "address"
 			},
-		],
-		name: "listStudentsInCourse",
-		outputs: [
 			{
-				internalType: "address[]",
-				name: "",
-				type: "address[]",
-			},
+				"internalType": "uint256",
+				"name": "_courseId",
+				"type": "uint256"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"name": "getStudentStatusInCourse",
+		"outputs": [
+			{
+				"internalType": "enum CourseRegistration.CourseStatus",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [],
-		name: "owner",
-		outputs: [
+		"inputs": [
 			{
-				internalType: "address",
-				name: "",
-				type: "address",
-			},
+				"internalType": "uint256",
+				"name": "_courseId",
+				"type": "uint256"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"name": "listStudentsInCourse",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
 			{
-				internalType: "address",
-				name: "",
-				type: "address",
-			},
-			{
-				internalType: "uint256",
-				name: "",
-				type: "uint256",
-			},
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
 		],
-		name: "studentCourseStatuses",
-		outputs: [
-			{
-				internalType: "enum CourseRegistration.CourseStatus",
-				name: "",
-				type: "uint8",
-			},
-		],
-		stateMutability: "view",
-		type: "function",
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "address",
-				name: "",
-				type: "address",
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			},
 			{
-				internalType: "uint256",
-				name: "",
-				type: "uint256",
-			},
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
 		],
-		name: "studentEnrolledCourses",
-		outputs: [
+		"name": "studentCourseStatuses",
+		"outputs": [
 			{
-				internalType: "uint256",
-				name: "",
-				type: "uint256",
-			},
+				"internalType": "enum CourseRegistration.CourseStatus",
+				"name": "",
+				"type": "uint8"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		inputs: [
+		"inputs": [
 			{
-				internalType: "address",
-				name: "",
-				type: "address",
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
 		],
-		name: "students",
-		outputs: [
+		"name": "studentEnrolledCourses",
+		"outputs": [
 			{
-				internalType: "string",
-				name: "firstName",
-				type: "string",
-			},
-			{
-				internalType: "string",
-				name: "lastName",
-				type: "string",
-			},
-			{
-				internalType: "uint256",
-				name: "studentId",
-				type: "uint256",
-			},
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
 		],
-		stateMutability: "view",
-		type: "function",
+		"stateMutability": "view",
+		"type": "function"
 	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "students",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "firstName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "lastName",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "studentId",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
 ];
 
-const contractAddress = "0x731ea8b848796a5ecdb8928414553ed564c7b1e3";
+const contractAddress = "0x755bd94658af828e60c2fc93758d52bc293114ad";
 
 const contract = new web3.eth.Contract(contractABI, contractAddress);
 
@@ -673,3 +741,22 @@ export const enrollInCourse = async (courseId, value) => {
 		console.log("Enrollment failed: ", error);
 	}
 };
+
+export const getStudentCoursesWithStatusMethod = async () => {
+	if (!web3) {
+	  console.error("Web3 is not initialized");
+	  return [];
+	}
+
+	const accounts = await web3.eth.getAccounts();
+	const address = accounts[0];
+  
+	try {
+	  const result = await contract.methods.getStudentCoursesWithStatus(address).call();
+	  return result;
+	} catch (error) {
+	  console.error("Error fetching student courses with status:", error);
+	  return [];
+	}
+  };
+  
