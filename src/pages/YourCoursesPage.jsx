@@ -3,26 +3,26 @@ import { getStudentCoursesWithStatusMethod } from "../web3/contractInteraction";
 import StudentCourseList from "../components/StudentCourseList";
 
 const YourCoursesPage = () => {
-  const [courses, setCourses] = useState([]);
+	const [courses, setCourses] = useState([]);
 
-  useEffect(() => {
-    async function fetchCourses() {
-      try {
-        const coursesData = await getStudentCoursesWithStatusMethod();
-        setCourses(coursesData);
-      } catch (error) {
-        console.log("Error fetching courses:", error);
-      }
-    }
+	useEffect(() => {
+		async function fetchCourses() {
+			try {
+				const coursesData = await getStudentCoursesWithStatusMethod();
+				setCourses(coursesData);
+			} catch (error) {
+				console.log("Error fetching courses:", error);
+			}
+		}
 
-    fetchCourses();
-  }, []);
+		fetchCourses();
+	}, []);
 
-  return (
-    <>
-      <StudentCourseList courses={courses} />
-    </>
-  );
+	return (
+		<>
+			<StudentCourseList courses={courses} />
+		</>
+	);
 };
 
 export default YourCoursesPage;
