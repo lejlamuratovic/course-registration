@@ -1,27 +1,35 @@
 import { useEffect, useState } from "react";
-import { getCoursesMethod } from "../web3/contractInteraction";
+import { getCoursesMethod, isCurrentAddressOwner } from "../web3/contractInteraction";
 import CourseList from "../components/CourseList";
+import AddCourseModal from "../components/AddCourseModal";
 
 const ExploreCoursesPage = () => {
   const [courses, setCourses] = useState([]);
+  const [isOwner, setIsOwner] = useState(false);
+
+  const fetchCourses = async () => {
+    try {
+      const coursesData = await getCoursesMethod(); // Fetching courses from the contract
+      setCourses(coursesData);
+    } catch (error) {
+      console.log("Error fetching courses:", error);
+    }
+  };
+
+  const checkOwnerStatus = async () => {
+    const ownerStatus = await isCurrentAddressOwner();
+    setIsOwner(ownerStatus);
+  };
 
   useEffect(() => {
-    async function fetchCourses() {
-      try {
-        const coursesData = await getCoursesMethod(); // fetching courses from the contract
-
-        setCourses(coursesData);
-      } catch (error) {
-        console.log("Error fetching courses:", error);
-      }
-    }
-
     fetchCourses();
+    checkOwnerStatus();
   }, []);
 
   return (
     <>
-      <CourseList courses={courses}/>
+      {isOwner && <AddCourseModal />}
+      <CourseList courses={courses} />
     </>
   );
 };

@@ -6,7 +6,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CourseDetailsModal from "./CourseDetailsModal";
 import ConfirmationModal from "./ConfirmationModal";
-import { enrollInCourse } from "../web3/contractInteraction";
+import { enrollInCourse, isCurrentAddressOwner } from "../web3/contractInteraction";
+import { useEffect } from "react";
 
 const CourseCard = ({ course }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,6 +30,17 @@ const CourseCard = ({ course }) => {
       console.log("Enrollment error:", error);
     }
   };
+
+  const [isOwner, setIsOwner] = useState(false);
+
+  useEffect(() => {
+    async function checkOwnerStatus() {
+      const ownerStatus = await isCurrentAddressOwner();
+      setIsOwner(ownerStatus);
+    }
+
+    checkOwnerStatus();
+  }, []);
 
   return (
     <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%', maxWidth: '100%', mb: 2 }}>
@@ -65,9 +77,11 @@ const CourseCard = ({ course }) => {
           p: 2,
         }}
       >
-        <Button size="small" variant="outlined" onClick={handleEnrollClick}>
-          Enroll
-        </Button>
+        {!isOwner && (
+          <Button size="small" variant="outlined" onClick={handleEnrollClick}>
+            Enroll
+          </Button>
+        )}
         <Button size="small" variant="outlined" onClick={handleOpenModal}>
           Learn More
         </Button>

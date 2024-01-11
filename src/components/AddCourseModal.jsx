@@ -6,9 +6,12 @@ import {
 	DialogActions,
 	DialogContent,
 	DialogTitle,
+	Fab
 } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+import { addCourseMethod } from "../web3/contractInteraction";
 
-const AddCourseModal = () => {
+const AddCourseModal = ({ }) => {
 	const [open, setOpen] = useState(false);
 	const [courseData, setCourseData] = useState({
 		name: "",
@@ -30,7 +33,7 @@ const AddCourseModal = () => {
 		setCourseData({ ...courseData, [e.target.name]: e.target.value });
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		// convert the date to unix timestamp by taking the current date and divide it by 1000 because solidity uses unix timestamp
 		const unixBeginDate = new Date(courseData.beginDate).getTime() / 1000;
 		const unixEndDate = new Date(courseData.endDate).getTime() / 1000;
@@ -42,14 +45,30 @@ const AddCourseModal = () => {
 		};
 
 		console.log(submissionData);
+
+		try {
+			await addCourseMethod(
+			  courseData.name,
+			  courseData.description,
+			  courseData.price,
+			  unixBeginDate,
+			  unixEndDate
+			);
+			console.log('Course added successfully');
+			handleClose();
+
+		  } catch (error) {
+			console.log('Failed to add the course:', error);
+		  }
+
 		handleClose();
 	};
 
 	return (
-		<div>
-			<Button variant="outlined" onClick={handleClickOpen}>
-				Add Course
-			</Button>
+		<div style={{ position: 'fixed', right: 40, bottom: 60 }}>
+			<Fab color="success" aria-label="add" onClick={handleClickOpen}>
+				<AddIcon />
+			</Fab>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>Add a New Course</DialogTitle>
 				<DialogContent>
