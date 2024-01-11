@@ -45,6 +45,9 @@ const Navbar = () => {
 						letterSpacing: ".3rem",
 						color: "inherit",
 						textDecoration: "none",
+						"&:hover": {
+							color: "lightgray",
+						},
 					}}
 				>
 					EduChain
@@ -114,15 +117,18 @@ const Navbar = () => {
 						letterSpacing: ".3rem",
 						color: "inherit",
 						textDecoration: "none",
+						"&:hover": {
+							color: "lightgray",
+						},
 					}}
 				>
 					EduChain
 				</Typography>
 
-				<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+				<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex", "&:hover": { color: "lightgray"} } }}>
 					<Button
 						key="Pricing"
-						sx={{ my: 2, color: "white", display: "block" }}
+						sx={{ my: 2, color: "white", display: "block", "&:hover": { color: "lightgray"} }}
 						component={Link}
 						to="/explore"
 					>
@@ -130,7 +136,7 @@ const Navbar = () => {
 					</Button>
 					<Button
 						key="Blog"
-						sx={{ my: 2, color: "white", display: "block" }}
+						sx={{ my: 2, color: "white", display: "block", "&:hover": { color: "lightgray"} }}
 						component={Link}
 						to="/yourcourses"
 					>

@@ -20,6 +20,7 @@ const StudentCourseCard = ({ course }) => {
 					variant="h5"
 					component="div"
 					sx={{ fontWeight: "bold", mb: 1, textAlign: "center" }}
+					color="primary"
 				>
 					{course.course.name}
 				</Typography>
