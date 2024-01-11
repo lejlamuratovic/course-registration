@@ -1,52 +1,65 @@
-import React from "react";
-import { Card, CardContent, Typography, Chip, Grid } from "@mui/material";
+import { Card, CardContent, Typography, Chip, Box } from "@mui/material";
 
 const StudentCourseCard = ({ course }) => {
-    const getStatusColor = (statusIndex) => {
-        switch (statusIndex) {
-            case 0: // Enrolled
-                return "orange";
-            case 1: // Completed
-                return "green";
-            case 2: // Failed
-                return "red";
-            default:
-                return "default";
-        }
-    };
+	const getStatusColor = (statusIndex) => {
+		const statusColors = {
+			0: "orange", // Enrolled
+			1: "green", // Completed
+			2: "red", // Failed
+		};
+		return statusColors[statusIndex] || "default";
+	};
 
-    const statusLabels = ["Enrolled", "Completed", "Failed"];
+	const statusLabels = ["Enrolled", "Completed", "Failed"];
 
-    return (
-        <Card sx = {{ }}>
-            <CardContent>
-                <Typography variant="h5" component="div">
-                    {course.course.name}
-                </Typography>
-                <Chip
-                    label={statusLabels[course.status] || "Unknown"}
-                    sx={{
-                        backgroundColor: getStatusColor(course.status),
-                        color: "white",
-                        marginTop: "10px",
-                    }}
-                />
-                <Grid
-                    container
-                    justifyContent="space-evenly"
-                    alignItems="flex-end"
-                    sx={{ marginTop: "10px" }}
-                >
-                    <Grid item>
-                        <Typography color="text.secondary"> startDate </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography color="text.secondary"> endDate </Typography>
-                    </Grid>
-                </Grid>
-            </CardContent>
-        </Card>
-    );
+	return (
+		<Card sx={{ maxWidth: "100%", mb: 2 }}>
+			<CardContent>
+				<Typography
+					gutterBottom
+					variant="h5"
+					component="div"
+					sx={{ fontWeight: "bold", mb: 1, textAlign: "center" }}
+				>
+					{course.course.name}
+				</Typography>
+				<Typography
+					variant="body2"
+					color="text.secondary"
+					sx={{
+						display: "-webkit-box",
+						overflow: "hidden",
+						WebkitBoxOrient: "vertical",
+						WebkitLineClamp: 2,
+						textAlign: "center",
+					}}
+				>
+					{course.course.description}
+				</Typography>
+			</CardContent>
+			<Box
+				sx={{
+					display: "flex",
+					justifyContent: "center",
+					p: 2,
+					flexDirection: "column",
+					alignItems: "center",
+				}}
+			>
+				<Chip
+					label={statusLabels[course.status] || "Unknown"}
+					sx={{
+						backgroundColor: getStatusColor(course.status),
+						color: "white",
+						mb: 1,
+					}}
+				/>
+				<Typography color="text.secondary">
+					{course.course.startDate} - {course.course.endDate}
+				</Typography>
+			</Box>
+		</Card>
+	);
 };
 
 export default StudentCourseCard;

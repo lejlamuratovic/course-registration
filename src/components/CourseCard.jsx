@@ -31,28 +31,25 @@ const CourseCard = ({ course }) => {
 	};
 
 	return (
-		<Card sx={{ }}>
+		<Card sx={{ maxWidth: "100%", mb: 2 }}>
 			<CardContent>
 				<Typography
 					gutterBottom
 					variant="h5"
 					component="div"
 					color="primary"
-					sx={{ fontWeight: "bold" }}
-					textAlign="left"
+					sx={{ fontWeight: "bold", mb: 1 }}
 				>
 					{course.name}
 				</Typography>
-
 				<Typography
 					variant="body2"
 					color="text.secondary"
-					textAlign="left"
 					sx={{
-						textAlign: "justify",
-						textOverflow: "ellipsis",
+						display: "-webkit-box",
 						overflow: "hidden",
-						whiteSpace: "nowrap",
+						WebkitBoxOrient: "vertical",
+						WebkitLineClamp: 2,
 					}}
 				>
 					{course.description}
@@ -63,26 +60,21 @@ const CourseCard = ({ course }) => {
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "space-around",
-					pl: 4,
-					pr: 4,
-					pb: 2,
+					p: 2,
 				}}
 			>
 				<Button size="small" variant="outlined" onClick={handleEnrollClick}>
 					Enroll
 				</Button>
-
 				<Button size="small" variant="outlined" onClick={handleOpenModal}>
 					Learn More
 				</Button>
 			</CardActions>
-
 			<CourseDetailsModal
 				course={course}
 				isOpen={isModalOpen}
 				onClose={handleCloseModal}
 			/>
-
 			<ConfirmationModal
 				isOpen={isConfirmationOpen}
 				onClose={() => setIsConfirmationOpen(false)}
