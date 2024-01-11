@@ -25,7 +25,7 @@ const Navbar = () => {
 	return (
 		<AppBar
 			position="static"
-			sx={{ width: "100%", position: "absolute", left: 0, top: 0 }}
+			sx={{ width: "100%", position: "absolute", left: 0, top: 0, zIndex: 100 }}
 		>
 			<Toolbar sx={{ display: "flex", alignItems: "center", maxWidth: "100%" }}>
 				<ApiIcon
