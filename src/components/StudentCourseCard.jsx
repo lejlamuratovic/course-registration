@@ -1,48 +1,51 @@
-import React from "react";
-import { Card, CardContent, Typography, Chip, Grid } from "@mui/material";
+import { Card, CardContent, Typography, Chip, Box } from "@mui/material";
 
-const StudentCourseCard = ({ courseName, status, startDate, endDate }) => {
-	const getStatusColor = (status) => {
-		switch (status) {
-			case "Enrolled":
-				return "orange";
-			case "Completed":
-				return "green";
-			case "Failed":
-				return "red";
-			default:
-				return "default";
-		}
+const StudentCourseCard = ({ course }) => {
+	const getStatusColor = (statusIndex) => {
+		const statusColors = {
+			0: "orange", // Enrolled
+			1: "green", // Completed
+			2: "red", // Failed
+		};
+		return statusColors[statusIndex] || "default";
 	};
 
+	const statusLabels = ["Enrolled", "Completed", "Failed"];
+
 	return (
-		<Card>
-			<CardContent>
-				<Typography variant="h5" component="div">
-					{courseName}
+		<Card sx={{ display: "flex", flexDirection: "column", mb: 2 }}>
+			<CardContent sx={{ flex: "1 0 auto" }}>
+				<Typography
+					gutterBottom
+					variant="h5"
+					component="div"
+					sx={{ fontWeight: "bold", textAlign: "center" }}
+					color="primary"
+				>
+					{course.course.name}
 				</Typography>
+			</CardContent>
+			<Box
+				sx={{
+					display: "flex",
+					justifyContent: "center",
+					p: 2,
+					flexDirection: "column",
+					alignItems: "center",
+				}}
+			>
 				<Chip
-					label={status}
-					style={{
-						backgroundColor: getStatusColor(status),
+					label={statusLabels[course.status] || "Unknown"}
+					sx={{
+						backgroundColor: getStatusColor(course.status),
 						color: "white",
-						marginTop: "10px",
+						mb: 1,
 					}}
 				/>
-				<Grid
-					container
-					justifyContent="space-evenly"
-					alignItems="flex-end"
-					style={{ marginTop: "10px" }}
-				>
-					<Grid item>
-						<Typography color="text.secondary">{startDate}</Typography>
-					</Grid>
-					<Grid item>
-						<Typography color="text.secondary">{endDate}</Typography>
-					</Grid>
-				</Grid>
-			</CardContent>
+				<Typography color="text.secondary">
+					{course.course.startDate} - {course.course.endDate}
+				</Typography>
+			</Box>
 		</Card>
 	);
 };

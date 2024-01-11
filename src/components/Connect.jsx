@@ -1,7 +1,7 @@
 import AddLinkIcon from "@mui/icons-material/AddLink";
 import ApiIcon from "@mui/icons-material/Api";
 import initializeWeb3 from "../web3/initializeWeb3";
-import { getCourseMethod } from "../web3/contractInteraction";
+import { getCoursesMethod } from "../web3/contractInteraction";
 import {
 	registerStudentOnBlockchain,
 	checkStudentRegistration,
@@ -55,8 +55,8 @@ const Connect = () => {
 			}
 
 			// call contract interaction function, just testing that it works
-			const result = await getCourseMethod();
-			console.log("getCourseMethod() result:", result); // debugging log
+			const result = await getCoursesMethod();
+			console.log("getCoursesMethod() result:", result); // debugging log
 		} catch (error) {
 			console.error("Error connecting to MetaMask:", error);
 		}
@@ -71,7 +71,7 @@ const Connect = () => {
 		try {
 			await registerStudentOnBlockchain(address, firstName, lastName);
 			alert("Student registered successfully!");
-			navigate("/homepage"); // Redirect to homepage after successful registration
+			navigate("/homepage");
 		} catch (error) {
 			console.error("Error registering student:", error);
 			alert("Failed to register student.");
@@ -81,21 +81,21 @@ const Connect = () => {
 	return (
 		<Paper sx={{ p: 2, margin: "auto", flexGrow: 1 }}>
 			<ApiIcon sx={{ fontSize: 70, m: 1 }} color="primary" />
-			<Typography variant="h3" color="primary" sx={{ fontWeight: "bold" }}>
+			<Typography variant="h4" color="primary" sx={{ fontWeight: "bold" }}>
 				Welcome to EduChain
 			</Typography>
 			{!walletConnected ? (
 				<Container>
-					<Typography variant="h4">
+					<Typography variant="h6">
 						Please connect your wallet to continue
 					</Typography>
 					<Button
 						variant="contained"
 						color="primary"
-						sx={{ mt: 4, p: 2, fontSize: "23px" }}
+						sx={{ mt: 4, p: 1, fontSize: "18px" }}
 						onClick={handleConnectWallet}
 					>
-						<AddLinkIcon sx={{ fontSize: 40, mr: 1 }} />
+						<AddLinkIcon sx={{ fontSize: 30, mr: 1 }} />
 						Connect Wallet
 					</Button>
 				</Container>
