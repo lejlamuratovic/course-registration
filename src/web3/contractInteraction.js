@@ -344,10 +344,6 @@ export const registerStudentOnBlockchain = async (
 	firstName,
 	lastName
 ) => {
-	if (!web3) {
-		console.log("Web3 is not initialized");
-	}
-
 	try {
 		const result = await contract.methods
 			.registerStudent(firstName, lastName)
@@ -360,11 +356,6 @@ export const registerStudentOnBlockchain = async (
 };
 
 export const checkStudentRegistration = async (address) => {
-	if (!web3) {
-		alert("Web3 is not initialized");
-		return false;
-	}
-
 	try {
 		const student = await contract.methods.getStudentDetails(address).call();
 		console.log("Student details:", student);
@@ -376,17 +367,11 @@ export const checkStudentRegistration = async (address) => {
 };
 
 export const enrollInCourse = async (courseId, value) => {
-	if (!web3) {
-		console.log("Web3 is not initialized");
-		return;
-	}
-
 	const accounts = await web3.eth.getAccounts();
 	const fromAddress = accounts[0];
 
 	try {
-
-		const weiValue = web3.utils.toWei(value.toString(), 'ether'); 
+		const weiValue = web3.utils.toWei(value.toString(), "ether");
 
 		const result = await contract.methods
 			.enrollInCourse(courseId)
@@ -399,11 +384,6 @@ export const enrollInCourse = async (courseId, value) => {
 };
 
 export const getStudentCoursesWithStatusMethod = async () => {
-	if (!web3) {
-		console.log("Web3 is not initialized");
-		return [];
-	}
-
 	const accounts = await web3.eth.getAccounts();
 	const address = accounts[0];
 
@@ -433,32 +413,22 @@ export const getStudentCoursesWithStatusMethod = async () => {
 	}
 };
 
-export const listenToCourseAddedEvent = (callback) => {
-	if (!web3) {
-		console.log("Web3 is not initialized");
-		return;
-	}
+// export const listenToCourseAddedEvent = (callback) => {
+// 	if (!contract) {
+// 		console.log("Contract is not initialized");
+// 		return;
+// 	}
 
-	if (!contract) {
-		console.log("Contract is not initialized");
-		return;
-	}
-
-	contract.events
-		.addedCourse()
-		.on("data", (event) => {
-			const { courseid, _name } = event.returnValues;
-			callback(courseid, _name);
-		})
-		.on("error", console.error);
-};
+// 	contract.events
+// 		.addedCourse()
+// 		.on("data", (event) => {
+// 			const { courseid, _name } = event.returnValues;
+// 			callback(courseid, _name);
+// 		})
+// 		.on("error", console.error);
+// };
 
 export const isCurrentAddressOwner = async () => {
-	if (!web3) {
-		console.log("Web3 is not initialized");
-		return false;
-	}
-
 	const accounts = await web3.eth.getAccounts();
 	const currentAddress = accounts[0];
 
@@ -474,19 +444,14 @@ export const addCourseMethod = async (
 	beginDate,
 	endDate
 ) => {
-	if (!web3) {
-		console.log("Web3 is not initialized");
-		return;
-	}
-
 	const accounts = await web3.eth.getAccounts();
 
 	const fromAddress = accounts[0];
-	const priceInWei = web3.utils.toWei(price.toString(), "ether");
+	// const priceInWei = web3.utils.toWei(price.toString(), "ether");
 
 	try {
 		const result = await contract.methods
-			.addCourse(name, description, priceInWei, beginDate, endDate)
+			.addCourse(name, description, price, beginDate, endDate)
 			.send({ from: fromAddress });
 		console.log("Add course transaction successful: ", result);
 		return result;
@@ -497,11 +462,6 @@ export const addCourseMethod = async (
 };
 
 export const getEnrolledStudentsWithNames = async (courseId) => {
-	if (!web3) {
-		console.log("Web3 is not initialized");
-		return [];
-	}
-
 	try {
 		const studentAddresses = await contract.methods
 			.listStudentsInCourse(courseId)
@@ -536,11 +496,6 @@ export const getEnrolledStudentsWithNames = async (courseId) => {
 };
 
 export const updateStudentStatus = async (studentAddress, courseId, status) => {
-	if (!web3) {
-		console.log("Web3 is not initialized");
-		return;
-	}
-
 	const accounts = await web3.eth.getAccounts();
 	const fromAddress = accounts[0];
 
