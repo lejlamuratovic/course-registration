@@ -10,142 +10,136 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import ApiIcon from "@mui/icons-material/Api";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { isCurrentAddressOwner } from "../web3/contractInteraction";
 
 const Navbar = () => {
-	const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [isOwner, setIsOwner] = useState(false);
 
-	const handleOpenNavMenu = (event) => {
-		setAnchorElNav(event.currentTarget);
-	};
+    useEffect(() => {
+        const checkOwnerStatus = async () => {
+            const ownerStatus = await isCurrentAddressOwner();
+            setIsOwner(ownerStatus);
+        };
 
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
-	};
+        checkOwnerStatus();
+    }, []);
 
-	return (
-		<AppBar
-			position="static"
-			sx={{ width: "100%", position: "absolute", left: 0, top: 0, zIndex: 100 }}
-		>
-			<Toolbar sx={{ display: "flex", alignItems: "center", maxWidth: "100%" }}>
-				<ApiIcon
-					sx={{ display: { xs: "none", md: "flex" }, fontSize: 50, mr: 1 }}
-				/>
-				<Typography
-					variant="h4"
-					noWrap
-					href="#responsive-app-bar"
-					component={Link}
-					to="/homepage"
-					sx={{
-						mr: 5,
-						display: { xs: "none", md: "flex" },
-						fontFamily: "monospace",
-						fontWeight: 700,
-						letterSpacing: ".3rem",
-						color: "inherit",
-						textDecoration: "none",
-						"&:hover": {
-							color: "lightgray",
-						},
-					}}
-				>
-					EduChain
-				</Typography>
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+    };
 
-				<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-					<IconButton
-						size="large"
-						aria-label="navigation menu"
-						aria-controls="menu-appbar"
-						aria-haspopup="true"
-						onClick={handleOpenNavMenu}
-						color="inherit"
-					>
-						<MenuIcon />
-					</IconButton>
-					<Menu
-						id="menu-appbar"
-						anchorEl={anchorElNav}
-						anchorOrigin={{
-							vertical: "bottom",
-							horizontal: "left",
-						}}
-						keepMounted
-						transformOrigin={{
-							vertical: "top",
-							horizontal: "left",
-						}}
-						open={Boolean(anchorElNav)}
-						onClose={handleCloseNavMenu}
-						sx={{
-							display: { xs: "block", md: "none" },
-						}}
-					>
-						<MenuItem
-							onClick={handleCloseNavMenu}
-							sx={{ fontSize: "1rem" }}
-							component={Link}
-							to="/explore"
-						>
-							<Typography textAlign="center">Explore courses</Typography>
-						</MenuItem>
-						<MenuItem
-							onClick={handleCloseNavMenu}
-							sx={{ fontSize: "1rem" }}
-							component={Link}
-							to="/yourcourses"
-						>
-							<Typography textAlign="center">Your courses</Typography>
-						</MenuItem>
-					</Menu>
-				</Box>
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
 
-				<ApiIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-				<Typography
-					variant="h5"
-					noWrap
-					component={Link}
-					to="/homepage"
-					href="#responsive-app-bar"
-					sx={{
-						mr: 2,
-						display: { xs: "flex", md: "none" },
-						flexGrow: 1,
-						fontFamily: "monospace",
-						fontWeight: 700,
-						letterSpacing: ".3rem",
-						color: "inherit",
-						textDecoration: "none",
-						"&:hover": {
-							color: "lightgray",
-						},
-					}}
-				>
-					EduChain
-				</Typography>
+    return (
+        <AppBar
+            position="static"
+            sx={{ width: "100%", position: "absolute", left: 0, top: 0, zIndex: 100 }}
+        >
+            <Toolbar sx={{ display: "flex", alignItems: "center", maxWidth: "100%" }}>
+                <ApiIcon
+                    sx={{ display: { xs: "none", md: "flex" }, fontSize: 50, mr: 1 }}
+                />
+                <Typography
+                    variant="h4"
+                    noWrap
+                    href="#responsive-app-bar"
+                    component={Link}
+                    to="/homepage"
+                    sx={{
+                        mr: 5,
+                        display: { xs: "none", md: "flex" },
+                        fontFamily: "monospace",
+                        fontWeight: 700,
+                        letterSpacing: ".3rem",
+                        color: "inherit",
+                        textDecoration: "none",
+                        "&:hover": {
+                            color: "lightgray",
+                        },
+                    }}
+                >
+                    EduChain
+                </Typography>
 
-				<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex", "&:hover": { color: "lightgray"} } }}>
-					<Button
-						key="Pricing"
-						sx={{ my: 2, color: "white", display: "block", "&:hover": { color: "lightgray"} }}
-						component={Link}
-						to="/explore"
-					>
-						Explore courses
-					</Button>
-					<Button
-						key="Blog"
-						sx={{ my: 2, color: "white", display: "block", "&:hover": { color: "lightgray"} }}
-						component={Link}
-						to="/yourcourses"
-					>
-						Your courses
-					</Button>
-				</Box>
-			</Toolbar>
-		</AppBar>
-	);
+                {/* Mobile Menu */}
+                <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                    <IconButton
+                        size="large"
+                        aria-label="navigation menu"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleOpenNavMenu}
+                        color="inherit"
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorElNav}
+                        anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "left",
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: "top",
+                            horizontal: "left",
+                        }}
+                        open={Boolean(anchorElNav)}
+                        onClose={handleCloseNavMenu}
+                        sx={{
+                            display: { xs: "block", md: "none" },
+                        }}
+                    >
+                        <MenuItem
+                            onClick={handleCloseNavMenu}
+                            sx={{ fontSize: "1rem" }}
+                            component={Link}
+                            to="/explore"
+                        >
+                            <Typography textAlign="center">Explore courses</Typography>
+                        </MenuItem>
+                        {!isOwner && (
+                            <MenuItem
+                                onClick={handleCloseNavMenu}
+                                sx={{ fontSize: "1rem" }}
+                                component={Link}
+                                to="/yourcourses"
+                            >
+                                <Typography textAlign="center">Your courses</Typography>
+                            </MenuItem>
+                        )}
+                    </Menu>
+                </Box>
+
+                {/* Desktop Menu */}
+                <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                    <Button
+                        key="explore"
+                        sx={{ my: 2, color: "white", display: "block" }}
+                        component={Link}
+                        to="/explore"
+                    >
+                        Explore courses
+                    </Button>
+                    {!isOwner && (
+                        <Button
+                            key="yourcourses"
+                            sx={{ my: 2, color: "white", display: "block" }}
+                            component={Link}
+                            to="/yourcourses"
+                        >
+                            Your courses
+                        </Button>
+                    )}
+                </Box>
+            </Toolbar>
+        </AppBar>
+    );
 };
 
 export default Navbar;

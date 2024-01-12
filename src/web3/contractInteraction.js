@@ -385,9 +385,12 @@ export const enrollInCourse = async (courseId, value) => {
 	const fromAddress = accounts[0];
 
 	try {
+
+		const weiValue = web3.utils.toWei(value.toString(), 'ether'); 
+
 		const result = await contract.methods
 			.enrollInCourse(courseId)
-			.send({ from: fromAddress, value });
+			.send({ from: fromAddress, value: weiValue });
 		console.log("Enrollment successful: ", result);
 		return result;
 	} catch (error) {

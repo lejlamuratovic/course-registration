@@ -1,3 +1,4 @@
+import { CenterFocusStrong } from "@mui/icons-material";
 import { Card, CardContent, Typography, Chip, Box } from "@mui/material";
 
 const StudentCourseCard = ({ course }) => {
@@ -13,7 +14,7 @@ const StudentCourseCard = ({ course }) => {
 	const statusLabels = ["Enrolled", "Completed", "Failed"];
 
 	return (
-		<Card sx={{ display: "flex", flexDirection: "column", mb: 2 }}>
+		<Card sx={{ display: "flex", flexDirection: "column", mb: 2, minWidth: 250, maxWidth: 345 }}>
 			<CardContent sx={{ flex: "1 0 auto" }}>
 				<Typography
 					gutterBottom
